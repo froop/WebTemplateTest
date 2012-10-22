@@ -1,5 +1,6 @@
 package froop.sample;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -22,5 +23,12 @@ public class LoginTest extends SampleBaseTestCase {
 		assertEquals(LOGIN_URL, driver.getCurrentUrl());
 		WebElement errorDiv = driver.findElement(By.id("error"));
 		assertEquals("ログインが拒否されました", errorDiv.getText());
+	}
+
+	@Test
+	public void testRedirectByNotLogin() throws Exception {
+		driver.get(BASE_URL + "sample/");
+
+		assertThat(driver.getCurrentUrl(), is(LOGIN_URL));
 	}
 }
