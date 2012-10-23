@@ -13,6 +13,7 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 	protected static final String BASE_URL = "http://localhost:18080/sample/";
 	protected static final String LOGIN_URL = BASE_URL + "login.html";
 	protected static final String SAMPLE_URL = BASE_URL + "sample/";
+	protected static final String SUMMARY_URL = SAMPLE_URL + "summary.html";
 
 	@Before
 	public void setUp() throws Exception {
