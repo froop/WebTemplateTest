@@ -31,6 +31,8 @@ public class LoginTest extends SampleBaseTestCase {
 
 	@Test
 	public void testRedirectByNotLogin() throws Exception {
+		logout();
+
 		driver.get(BASE_URL + "sample/");
 
 		assertThat(driver.getCurrentUrl(), is(LOGIN_URL));

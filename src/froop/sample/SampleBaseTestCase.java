@@ -13,7 +13,6 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 
 	@Before
 	public void setUp() throws Exception {
-		driver.get(BASE_URL + "logout");
 	}
 
 	@After
@@ -30,5 +29,9 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 		passText.sendKeys(password);
 		WebElement loginButton = driver.findElement(By.name("login"));
 		loginButton.click();
+	}
+
+	protected void logout() {
+		driver.get(BASE_URL + "logout");
 	}
 }
