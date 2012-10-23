@@ -1,8 +1,13 @@
 package froop.framework;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -26,5 +31,10 @@ public class WebDriverTestCase {
 				return driver.getCurrentUrl().startsWith(url);
 			}
 		});
+	}
+
+	protected static void assertInputValue(String name, String value) {
+		WebElement input = driver.findElement(By.name(name));
+		assertThat(input.getAttribute("value"), is(value));
 	}
 }
