@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import froop.framework.WebDriverTestCase;
 
 public class SampleBaseTestCase extends WebDriverTestCase {
-	protected static final String BASE_URL = "http://localhost:8080/sample/";
+	protected static final String BASE_URL = "http://localhost:18080/sample/";
 	protected static final String LOGIN_URL = BASE_URL + "login.html";
 
 	@Before
