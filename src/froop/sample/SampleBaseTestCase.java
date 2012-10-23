@@ -1,5 +1,7 @@
 package froop.sample;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.By;
@@ -10,13 +12,17 @@ import froop.framework.WebDriverTestCase;
 public class SampleBaseTestCase extends WebDriverTestCase {
 	protected static final String BASE_URL = "http://localhost:18080/sample/";
 	protected static final String LOGIN_URL = BASE_URL + "login.html";
+	protected static final String SAMPLE_URL = BASE_URL + "sample/";
 
 	@Before
 	public void setUp() throws Exception {
+		login("user1", "password1");
+		clearAllItems();
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		logout();
 	}
 
 	protected void login(String user, String password) {
@@ -33,5 +39,20 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 
 	protected void logout() {
 		driver.get(BASE_URL + "logout");
+	}
+
+	private static void clearAllItems() throws Exception {
+		while (true) {
+			driver.get(SAMPLE_URL);
+			List<WebElement> elements = driver.findElements(By
+					.className("item-link"));
+			if (elements.size() == 0) {
+				return;
+			}
+			elements.get(0).click();
+
+			driver.findElement(By.name("disabled")).click();
+			driver.findElement(By.name("register")).click();
+		}
 	}
 }
