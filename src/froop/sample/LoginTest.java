@@ -23,6 +23,10 @@ public class LoginTest extends SampleBaseTestCase {
 		assertThat(driver.getCurrentUrl(), is(LOGIN_URL));
 		WebElement errorDiv = driver.findElement(By.id("error"));
 		assertThat(errorDiv.getText(), is("ログインが拒否されました"));
+		WebElement userText = driver.findElement(By.name("user"));
+		assertThat(userText.getAttribute("value"), is("user1"));
+		WebElement passText = driver.findElement(By.name("password"));
+		assertThat(passText.getAttribute("value"), is(""));
 	}
 
 	@Test
