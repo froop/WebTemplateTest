@@ -35,4 +35,15 @@ public class LoginTest extends SampleBaseTestCase {
 
 		assertThat(driver.getCurrentUrl(), is(LOGIN_URL));
 	}
+
+	@Test
+	public void testRedirectOriginal() throws Exception {
+		final String originURl = BASE_URL + "sample/summary.html";
+		logout();
+		driver.get(originURl);
+
+		inputLogin("user1", "password1");
+
+		assertThat(driver.getCurrentUrl(), is(originURl));
+	}
 }

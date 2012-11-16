@@ -1,5 +1,8 @@
 package froop.sample;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.junit.After;
@@ -32,6 +35,7 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 	}
 
 	protected void inputLogin(String user, String password) {
+		assertThat(driver.getCurrentUrl(), is(LOGIN_URL));
 		inputUser(user);
 		inputPassword(password);
 		clickLoginButton();
