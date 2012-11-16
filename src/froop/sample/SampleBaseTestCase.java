@@ -28,12 +28,28 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 
 	protected void login(String user, String password) {
 		driver.get(LOGIN_URL);
+		inputLogin(user, password);
+	}
+
+	protected void inputLogin(String user, String password) {
+		inputUser(user);
+		inputPassword(password);
+		clickLoginButton();
+	}
+
+	private void inputUser(String user) {
 		WebElement userText = driver.findElement(By.name("user"));
 		userText.clear();
 		userText.sendKeys(user);
+	}
+
+	private void inputPassword(String password) {
 		WebElement passText = driver.findElement(By.name("password"));
 		passText.clear();
 		passText.sendKeys(password);
+	}
+
+	private void clickLoginButton() {
 		WebElement loginButton = driver.findElement(By.name("login"));
 		loginButton.click();
 	}
