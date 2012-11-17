@@ -37,13 +37,26 @@ public class LoginTest extends SampleBaseTestCase {
 	}
 
 	@Test
-	public void testRedirectOriginal() throws Exception {
-		final String originURl = BASE_URL + "sample/summary.html";
+	public void testRedirectOriginUrl() throws Exception {
+		final String originUrl = BASE_URL + "sample/summary.html";
+
+		loginWithOriginUrl(originUrl);
+
+		assertThat(driver.getCurrentUrl(), is(originUrl));
+	}
+
+	@Test
+	public void testClearOriginUrl() throws Exception {
+		loginWithOriginUrl(BASE_URL + "sample/summary.html");
+
+		login("user1", "password1");
+
+		assertThat(driver.getCurrentUrl(), is(BASE_URL));
+	}
+
+	private void loginWithOriginUrl(final String originUrl) {
 		logout();
-		driver.get(originURl);
-
+		driver.get(originUrl);
 		inputLogin("user1", "password1");
-
-		assertThat(driver.getCurrentUrl(), is(originURl));
 	}
 }
