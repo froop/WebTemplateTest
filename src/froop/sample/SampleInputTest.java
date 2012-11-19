@@ -5,13 +5,36 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class SampleInputTest extends SampleBaseTestCase {
+	private static final String SUMMARY_URL = SAMPLE_URL + "summary.html";
 	private static final String INPUT_URL = SAMPLE_URL + "input.html";
+
+	@Before
+	public void setUp() throws Exception {
+		super.setUp();
+		clearAllItems();
+	}
+
+	private void clearAllItems() throws Exception {
+		while (true) {
+			driver.get(SAMPLE_URL);
+			List<WebElement> elements = driver.findElements(By
+					.className("item-link"));
+			if (elements.size() == 0) {
+				return;
+			}
+			elements.get(0).click();
+
+			driver.findElement(By.name("disabled")).click();
+			driver.findElement(By.name("register")).click();
+		}
+	}
 
 	@Test
 	public void testInputNew() throws Exception {
