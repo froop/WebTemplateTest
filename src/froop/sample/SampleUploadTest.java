@@ -48,9 +48,8 @@ public class SampleUploadTest extends SampleBaseTestCase {
 
 	@Test
 	public void testFileSizeMax() throws Exception {
-		String fileName = "16M上限";
+		File file = new File("work/16M上限");
 		int fileSize = 16 * 1000 * 1000 - 500;
-		File file = new File("work/" + fileName);
 		createDummyFile(file, fileSize);
 
 		upload(file, "");
@@ -60,23 +59,22 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		file.delete();
 	}
 
-//	@Test
-//	public void testFileSizeError() throws Exception {
-//		setupAddMode();
-//
-//		File file = new File("work/16Mオーバー");
-//		createDummyFile(file.getAbsolutePath(), 16 * 1000 * 1000);
-//		driver.findElement(By.name("file")).sendKeys(file.getAbsolutePath());
-//		driver.findElement(By.name("add")).click();
-//
-//		assertEquals(fileContentUrl + "edit-add", driver.getCurrentUrl());
-//		String error = getErrorMessage();
-//		assertTrue(error, error.matches("アップロードしたファイルに問題があります " +
-//				"\\(the request was rejected because its size \\(16000...\\) " +
-//				"exceeds the configured maximum \\(16000000\\)\\)"));
-//
-//		file.delete();
-//	}
+	@Test
+	public void testFileSizeError() throws Exception {
+		File file = new File("work/16Mオーバー");
+		int fileSize = 16 * 1000 * 1000;
+		createDummyFile(file, fileSize);
+
+		upload(file, "");
+
+		String pageSource = driver.getPageSource();
+		assertTrue(pageSource.contains(" 400 "));
+		assertTrue(pageSource.matches(
+				".*the request was rejected because its size \\(16000...\\) " +
+				"exceeds the configured maximum \\(16000000\\).*"));
+
+		file.delete();
+	}
 
 	private static void createDummyFile(File path, int length)
 			throws IOException {
