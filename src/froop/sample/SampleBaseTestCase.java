@@ -57,4 +57,8 @@ public class SampleBaseTestCase extends WebDriverTestCase {
 	protected void logout() {
 		driver.get(BASE_URL + "logout");
 	}
+
+	protected String getErrorMessage() {
+		return driver.findElement(By.id("error")).getText();
+	}
 }
