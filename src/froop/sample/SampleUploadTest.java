@@ -39,17 +39,18 @@ public class SampleUploadTest extends SampleBaseTestCase {
 	public void testUpload() throws Exception {
 		File file = new File(getAbsolutePath(UPLOAD_FILE));
 
-		inputNew(file);
+		upload(file, "コメント1");
 
 		assertDownloadFile(file);
+		assertInputValue("text", "コメント1");
 	}
 
-	private void inputNew(File file) throws IOException {
+	private void upload(File file, String comment) throws IOException {
 		driver.get(UPLOAD_URL);
 		driver.findElement(By.name("file")).sendKeys(file.getAbsolutePath());
 		WebElement textElem = driver.findElement(By.name("text"));
 		textElem.clear();
-		textElem.sendKeys("あいう");
+		textElem.sendKeys(comment);
 		driver.findElement(By.name("register")).click();
 	}
 
