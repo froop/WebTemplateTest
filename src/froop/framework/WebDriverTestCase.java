@@ -3,6 +3,8 @@ package froop.framework;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
@@ -50,5 +52,17 @@ public class WebDriverTestCase {
 	protected static void assertInputValue(String name, String value) {
 		WebElement input = driver.findElement(By.name(name));
 		assertThat(input.getAttribute("value"), is(value));
+	}
+
+	protected static void assertClassText(String tagClass, String text) {
+		List<WebElement> elements = driver.findElements(By.className(tagClass));
+		WebElement element = null;
+		try {
+			element = elements.get(0);
+		} catch (IndexOutOfBoundsException e) {
+			fail("Not Exists " + tagClass + "=" + text);
+		}
+
+		assertThat(element.getText(), is(text));
 	}
 }

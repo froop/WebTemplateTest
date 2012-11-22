@@ -69,18 +69,6 @@ public class SampleInputTest extends SampleBaseTestCase {
 		assertClassText("flag", "true");
 	}
 
-	private void assertClassText(String tagClass, String text) {
-		List<WebElement> elements = driver.findElements(By.className(tagClass));
-		WebElement element = null;
-		try {
-			element = elements.get(0);
-		} catch (IndexOutOfBoundsException e) {
-			fail("Not Exists " + tagClass + "=" + text);
-		}
-
-		assertThat(element.getText(), is(text));
-	}
-
 	private void moveToInputPage() {
 		driver.findElement(By.className("item-link")).click();
 	}
