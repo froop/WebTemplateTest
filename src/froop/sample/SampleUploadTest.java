@@ -45,15 +45,6 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		assertInputValue("text", "コメント1");
 	}
 
-	private void upload(File file, String comment) throws IOException {
-		driver.get(UPLOAD_URL);
-		driver.findElement(By.name("file")).sendKeys(file.getAbsolutePath());
-		WebElement textElem = driver.findElement(By.name("text"));
-		textElem.clear();
-		textElem.sendKeys(comment);
-		driver.findElement(By.name("register")).click();
-	}
-
 //	@Test
 //	public void testFileSizeMax() throws Exception {
 //		String fileName = "16M上限";
@@ -134,6 +125,15 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private void upload(File file, String comment) throws IOException {
+		driver.get(UPLOAD_URL);
+		driver.findElement(By.name("file")).sendKeys(file.getAbsolutePath());
+		WebElement textElem = driver.findElement(By.name("text"));
+		textElem.clear();
+		textElem.sendKeys(comment);
+		driver.findElement(By.name("register")).click();
 	}
 
 //	private void assertDownloadFile(String fileName)
