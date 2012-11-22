@@ -74,7 +74,7 @@ public class SampleInputTest extends SampleBaseTestCase {
 	}
 
 	private void assertInput() {
-//		assertThat(driver.getCurrentUrl(), is(INPUT_URL));
+		assertThat(driver.getCurrentUrl(), is(startsWith(INPUT_URL)));
 		assertInputValue("text", "テスト1");
 		assertInputValue("date", "2012/10/23");
 		assertInputValue("time_minute", "17:19");
