@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -45,25 +46,20 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		assertInputValue("text", "コメント1");
 	}
 
-//	@Test
-//	public void testFileSizeMax() throws Exception {
-//		String fileName = "16M上限";
-//		int fileSize = 16 * 1000 * 1000 - 500;
-//
-//		File expected = new File("work/" + fileName);
-//		createDummyFile(expected.getAbsolutePath(), fileSize);
-//		driver.findElement(By.name("file")).sendKeys(expected.getAbsolutePath());
-//		driver.findElement(By.name("add")).click();
-//		assertEquals(fileContentUrl + "edit", driver.getCurrentUrl());
-//		driver.findElement(By.name("preview")).click();
-//		driver.findElement(By.name("record")).click();
-//
-//		driver.get(userContentUrl);
-//		assertDownloadFile(expected);
-//
-//		expected.delete();
-//	}
-//
+	@Test
+	public void testFileSizeMax() throws Exception {
+		String fileName = "16M上限";
+		int fileSize = 16 * 1000 * 1000 - 500;
+		File file = new File("work/" + fileName);
+		createDummyFile(file, fileSize);
+
+		upload(file, "");
+
+		assertDownloadFile(file);
+
+		file.delete();
+	}
+
 //	@Test
 //	public void testFileSizeError() throws Exception {
 //		setupAddMode();
@@ -81,14 +77,15 @@ public class SampleUploadTest extends SampleBaseTestCase {
 //
 //		file.delete();
 //	}
-//
-//	private static void createDummyFile(String name, int length)
-//			throws IOException {
-//		RandomAccessFile file = new RandomAccessFile(name, "rw");
-//		file.setLength(length);
-//		file.close();
-//	}
-//
+
+	private static void createDummyFile(File path, int length)
+			throws IOException {
+		path.getParentFile().mkdir();
+		RandomAccessFile file = new RandomAccessFile(path.getAbsolutePath(), "rw");
+		file.setLength(length);
+		file.close();
+	}
+
 //	@Test
 //	public void testUnicode() throws Exception {
 //		String categoryName = "尾骶骨カテゴリ";
