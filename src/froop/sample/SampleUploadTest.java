@@ -94,17 +94,14 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		assertInputValue("text", "尾骶骨");
 	}
 
-//	@Test
-//	public void testHasSpace() throws Exception {
-//		String fileName = "I have space.pdf";
-//		addNormalFileContent("ファイルカテゴリ１", Arrays.asList(fileName));
-//
-//		driver.get(userContentUrl);
-//		assertNewsLinks(Arrays.asList(
-//				getToday() + " ファイルカテゴリ１：" + fileName + " 更新"));
-//		assertFileContentFiles(0, Arrays.asList(fileName));
-//		assertDownloadFile(fileName);
-//	}
+	@Test
+	public void testHasSpace() throws Exception {
+		File file = new File(getAbsolutePath("I have space.pdf"));
+
+		upload(file, "");
+
+		assertDownloadFile(file);
+	}
 
 	private String getAbsolutePath(String fileName) {
 		try {
@@ -124,12 +121,6 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		textElem.sendKeys(comment);
 		driver.findElement(By.name("register")).click();
 	}
-
-//	private void assertDownloadFile(String fileName)
-//			throws IOException {
-//		File expected = new File(getAbsolutePath(fileName));
-//		assertDownloadFile(expected);
-//	}
 
 	private void assertDownloadFile(File expected) throws IOException {
 		String actualName = expected.getName().replace('骶', '？'); //TODO
