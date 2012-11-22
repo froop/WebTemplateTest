@@ -84,22 +84,16 @@ public class SampleUploadTest extends SampleBaseTestCase {
 		file.close();
 	}
 
-//	@Test
-//	public void testUnicode() throws Exception {
-//		String categoryName = "尾骶骨カテゴリ";
-//		String fileName = "Unicode尾骶骨.txt";
-//		addNormalFileContent("尾骶骨カテゴリ", Arrays.asList(fileName));
-//
-//		assertFileContentTop(Arrays.asList(categoryName));
-//		driver.get(userContentUrl);
-//		assertNewsLinks(Arrays.asList(
-//				getToday() + " " + categoryName + "：" + fileName + " 更新"));
-//		assertFileContentTitles(Arrays.asList(categoryName));
-//		assertFileContentFiles(0, Arrays.asList(fileName));
-//		assertFileUpdateDates(0, Arrays.asList(getUpdateDateText()));
-//		assertDownloadFile(fileName);
-//	}
-//
+	@Test
+	public void testUnicode() throws Exception {
+		File file = new File(getAbsolutePath("Unicode尾骶骨.txt"));
+
+		upload(file, "尾骶骨");
+
+		assertDownloadFile(file);
+		assertInputValue("text", "尾骶骨");
+	}
+
 //	@Test
 //	public void testHasSpace() throws Exception {
 //		String fileName = "I have space.pdf";
