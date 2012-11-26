@@ -1,5 +1,6 @@
 package froop.sample;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.io.File;
@@ -14,6 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import froop.framework.matcher.RegexMatcher;
 
 public class SampleUploadTest extends SampleBaseTestCase {
 	private static final String UPLOAD_URL = SAMPLE_URL + "upload.html";
@@ -62,16 +65,16 @@ public class SampleUploadTest extends SampleBaseTestCase {
 	@Test
 	public void testFileSizeError() throws Exception {
 		File file = new File("work/16Mオーバー");
-		int fileSize = 16 * 1000 * 1000;
+		int fileSize = 16 * 1024 * 1024;
 		createDummyFile(file, fileSize);
 
 		upload(file, "");
 
 		String pageSource = driver.getPageSource();
-		assertTrue(pageSource.contains(" 400 "));
-		assertTrue(pageSource.matches(
-				".*the request was rejected because its size \\(16000...\\) " +
-				"exceeds the configured maximum \\(16000000\\).*"));
+		assertThat(pageSource, is(containsString(" 400 ")));
+		assertThat(pageSource, is(RegexMatcher.matches(
+				".*the request was rejected because its size \\(16777...\\) " +
+				"exceeds the configured maximum \\(16777216\\).*")));
 
 		file.delete();
 	}
